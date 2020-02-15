@@ -1,3 +1,5 @@
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/herve-brun/swagger-diff-maven-plugin) 
+
 # swagger-diff-maven-plugin
 This is a maven plugin to generate a report which details the differences between two versions of the same swagger API.
 

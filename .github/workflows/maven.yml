@@ -14,15 +14,4 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn -B -ntp package --file pom.xml -DskipTests
-
-  sonarCloudTrigger:
-    name: SonarCloud Trigger
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: mvn -B -ntp package org.sonarsource.scanner.maven:sonar --file pom.xml -DskipTests

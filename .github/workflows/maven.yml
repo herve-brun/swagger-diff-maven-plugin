@@ -27,3 +27,8 @@ jobs:
         SONAR_PROJECTKEY: "herve-brun_swagger-diff-maven-plugin"
         SONAR_ORGANIZATION: "herve-brun"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run: mkdir staging && cp target/*.jar staging
+    - uses: actions/upload-artifact@v1
+      with:
+        name: Package
+        path: staging

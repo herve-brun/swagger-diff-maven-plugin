@@ -14,8 +14,7 @@
 	<name>swagger-diff maven Plugin</name>
 	<description>A maven plugin to compute differences between two swagger specifications</description>
 
-	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
+	<url>https://github.com/herve-brun/swagger-diff-maven-plugin</url>
 
 	<prerequisites>
 		<maven>${maven.version}</maven>

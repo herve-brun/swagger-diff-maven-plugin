@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>fr.laposte.disbr.maven.plugins</groupId>
-  <artifactId>maven-swagger-diff-plugin</artifactId>
+  <artifactId>maven-swagger-diff-plugin-test</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Test DiffMojo</name>
@@ -16,8 +16,8 @@
         <artifactId>swagger-diff-maven-plugin</artifactId>
         <configuration>
           <outputFilePrefix>differences</outputFilePrefix>
-          <oldAPi>https://petstore.swagger.io/v2/swagger.json</oldAPi>
-          <newApi>https://petstore.swagger.io/v2/swagger.json</newApi>
+          <oldAPi>classpath://target/test-classes/project-to-test/oldApi.json</oldAPi>
+          <newApi>classpath://target/test-classes/project-to-test/oldApi.json</newApi>
           <swaggerVersion>2</swaggerVersion>
           <attachAtifacts>true</attachAtifacts>
           <title>Test</title>

@@ -1,4 +1,4 @@
-package com.deepoove.swagger.diff.out;
+package fr.laposte.disbr.maven.plugins.swaggerdiff.out;
 
 import static j2html.TagCreator.a;
 import static j2html.TagCreator.body;

@@ -1,4 +1,4 @@
-package com.deepoove.swagger.diff.out;
+package fr.laposte.disbr.maven.plugins.swaggerdiff.out;
 
 /**
  * OutputStyle.java

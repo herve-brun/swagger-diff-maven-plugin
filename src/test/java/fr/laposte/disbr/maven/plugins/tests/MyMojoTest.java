@@ -1,4 +1,4 @@
-package com.deepoove.swagger.diff;
+package fr.laposte.disbr.maven.plugins.tests;
 
 
 import static org.junit.Assert.assertNotNull;
@@ -9,6 +9,8 @@ import java.io.File;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.junit.Rule;
 import org.junit.Test;
+
+import fr.laposte.disbr.maven.plugins.swaggerdiff.DiffMojo;
 
 public class MyMojoTest
 {

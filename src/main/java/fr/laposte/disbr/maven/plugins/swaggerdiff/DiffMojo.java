@@ -1,4 +1,4 @@
-package com.deepoove.swagger.diff;
+package fr.laposte.disbr.maven.plugins.swaggerdiff;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,11 +26,11 @@ import com.deepoove.swagger.diff.SwaggerDiff;
 import com.deepoove.swagger.diff.output.MarkdownRender;
 import com.deepoove.swagger.diff.output.Render;
 
-import com.deepoove.swagger.diff.out.HtmlRender;
-import com.deepoove.swagger.diff.out.OutputStyle;
+import fr.laposte.disbr.maven.plugins.swaggerdiff.out.HtmlRender;
+import fr.laposte.disbr.maven.plugins.swaggerdiff.out.OutputStyle;
 
 /**
- * Goal which outputs the differences between two swagger APIs to a file and
+ * Goal which outputs the differences between two OpenAPIv2 APIs to a file, and
  * eventually deploys the produced artifact.
  */
 @Mojo(name = "diff", defaultPhase = LifecyclePhase.NONE)
@@ -135,9 +135,19 @@ public class DiffMojo extends AbstractMojo {
 			// Et on l'écrit dans le fichier de sortie en UTF-8
 			Writer fw = null;
 			try {
+				File directory = new File(String.valueOf(outputDirectory));
+				if (!directory.exists()) {
+					logger.info(String.format("Directory %1$s does not exist, creating it", outputDirectory));
+					if (!directory.mkdir()) {
+						String errMsg = String.format("Could not create the output directory %1$s", outputDirectory);
+						buildContext.addMessage(outputFile, 0, 0, errMsg, BuildContext.SEVERITY_ERROR, null);
+						throw new MojoExecutionException(errMsg);
+					}
+				} else {
+					logger.debug(String.format("Directory %1$s exists, NOT creating it", outputDirectory));
+				}
 				fw = new OutputStreamWriter(new FileOutputStream(outputFile), StandardCharsets.UTF_8);
 				fw.write(toWrite);
-				fw.close();
 				buildContext.refresh(outputFile);
 
 				if (logger.isInfoEnabled()) {
@@ -150,7 +160,7 @@ public class DiffMojo extends AbstractMojo {
 			} catch (final IOException e) {
 				buildContext.addMessage(outputFile, 0, 0, "Could not write an output file", BuildContext.SEVERITY_ERROR,
 						e);
-				throw new MojoExecutionException("Could not write an output file", e);
+				throw new MojoExecutionException("Could not write to the output file", e);
 			} finally {
 				IOUtils.closeQuietly(fw);
 			}

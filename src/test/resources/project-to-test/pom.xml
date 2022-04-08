@@ -15,11 +15,11 @@
       <plugin>
         <artifactId>swagger-diff-maven-plugin</artifactId>
         <configuration>
-          <outputFilePrefix>differences</outputFilePrefix>
-          <oldAPi>classpath://target/test-classes/project-to-test/oldApi.json</oldAPi>
-          <newApi>classpath://target/test-classes/project-to-test/oldApi.json</newApi>
+          <outputFilePrefix>${basedir}/target/test-classes/project-to-test/differences</outputFilePrefix>
+          <oldApi>${basedir}/target/test-classes/project-to-test/oldApi.json</oldApi>
+          <newApi>${basedir}/target/test-classes/project-to-test/oldApi.json</newApi>
           <swaggerVersion>2</swaggerVersion>
-          <attachAtifacts>true</attachAtifacts>
+          <attachAtifacts>false</attachAtifacts>
           <title>Test</title>
         </configuration>
       </plugin>

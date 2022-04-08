@@ -40,8 +40,8 @@ public class DiffMojo extends AbstractMojo {
 	 * Si <code>true</code> alors le fichier {@link #outputFile} ne sera pas déployé
 	 * dans le dépôt distant
 	 */
-	@Parameter(property = "attachAtifacts", defaultValue = "true", required = false)
-	private boolean attachAtifacts;
+	@Parameter(property = "attachArtifacts", defaultValue = "true", required = false)
+	private boolean attachArtifacts;
 
 	/** Fichier qui sera produit par ce goal maven */
 	@Parameter(defaultValue = "${project.build.directory}/swagger/", property = "outputDirectory", required = false)
@@ -154,7 +154,7 @@ public class DiffMojo extends AbstractMojo {
 					logger.info(String.format("Wrote output file %1$s", outputFile));
 				}
 
-				if (attachAtifacts) {
+				if (attachArtifacts) {
 					projectHelper.attachArtifact(project, outputStyle.getExtension(), "swagger-diff", outputFile);
 				}
 			} catch (final IOException e) {

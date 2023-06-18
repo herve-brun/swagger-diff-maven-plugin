@@ -12,7 +12,7 @@ Very handy when you need to generate a changelog readable by humans and deploy i
 
 # Usage
 
-mvn fr.laposte.dsibr.maven.plugins:swagger-diff:help -Ddetail -goal=diff
+mvn fr.laposte.dsibr.maven.plugins:swagger-diff-maven-plugin:help -Ddetail=true -Dgoal=diff
 
 # Kudos
 

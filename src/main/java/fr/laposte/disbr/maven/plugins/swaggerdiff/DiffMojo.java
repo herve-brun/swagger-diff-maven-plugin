@@ -30,60 +30,60 @@ import fr.laposte.disbr.maven.plugins.swaggerdiff.out.HtmlRender;
 import fr.laposte.disbr.maven.plugins.swaggerdiff.out.OutputStyle;
 
 /**
- * Goal which outputs the differences between two OpenAPIv2 APIs to a file, and
+ * Writes the differences between two OpenAPIv2 APIs to a file, and
  * eventually deploys the produced artifact.
  */
 @Mojo(name = "diff", defaultPhase = LifecyclePhase.NONE)
 public class DiffMojo extends AbstractMojo {
 
 	/**
-	 * Si <code>true</code> alors le fichier {@link #outputFile} ne sera pas déployé
-	 * dans le dépôt distant
+	 * If <code>false</code> then the file {@link #outputFile} will not be deployed 
+	 * in the remote repository.
 	 */
 	@Parameter(property = "attachArtifacts", defaultValue = "true", required = false)
 	private boolean attachArtifacts;
 
-	/** Fichier qui sera produit par ce goal maven */
+	/** File to be produced by this maven goal */
 	@Parameter(defaultValue = "${project.build.directory}/swagger/", property = "outputDirectory", required = false)
 	private String outputDirectory;
 
 	@Parameter(defaultValue = "swagger-diff", property = "outputFilePrefix", required = false)
 	private String outputFilePrefix;
 
-	/** Localisation de l'ancienne API. Peut être un fichier ou une URL. */
+	/** Location of the first API. Can be a file or a URL. */
 	@Parameter(property = "oldApi", required = true)
 	private String oldApi;
 
-	/** Localisation de la nouvelle API. Peut être un fichier ou une URL. */
+	/** Localization of the second API. Can be a file or a URL. */
 	@Parameter(property = "newApi", required = true)
 	private String newApi;
 
-	/** Version swagger des API comparées. */
+	/** Swagger version of compared APIs. */
 	@Parameter(property = "swaggerVersion", required = true)
 	private String swaggerVersion;
 
-	/** Helper utilisé pour accéder au projet maven en cours de production */
+	/** Helper used to access maven project in production */
 	@Component
 	private MavenProjectHelper projectHelper;
 
-	/** Le projet maven en cours de production */
+	/** The maven project in production */
 	@Parameter(defaultValue = "${project}", readonly = true)
 	private MavenProject project;
 
 	/**
-	 * Titre écrit dans l'en-tête du rapport généré. N''est pas utilisé si
-	 * {@link #outputStyles} est {@link OutputStyle#MARKDOWN}.
+	 * Title written in the header of the generated report.
+	 * Not used if {@link #outputStyles} is {@link OutputStyle#MARKDOWN}.
 	 */
 	@Parameter(defaultValue = "Changelog", property = "title", required = false)
 	private String title;
 
-	/** Style du rapport. Valeurs possibles : HTML, MARKDOWN. */
+	/** Report style. Possible values: HTML, MARKDOWN. */
 	@Parameter(property = "outputStyle")
 	private List<OutputStyle> outputStyles;
 
 	/**
-	 * Contexte de build utilisé pour dire à l'environnement de développement que le
-	 * fichier {@link #outputFile} a été mis à jour.
+	 * Build context used to tell the development environment that the
+	 * file {@link #outputFile} has been updated.
 	 */
 	@Component
 	private BuildContext buildContext;
@@ -95,13 +95,13 @@ public class DiffMojo extends AbstractMojo {
 					newApi));
 		}
 
-		// Calcul des différences swagger entre les deux API
+		// Calculating swagger differences between the two APIs
 		final SwaggerDiff diff = SwaggerDiff.compareV2(oldApi, newApi);
 
-		// Texte qui sera écrit dans outputFile
+		// Text that will be written to outputFile
 		String toWrite = null;
 
-		// Dessinateur du fichier en sortie de ce mojo
+		// Drawer of the output file of this mojo
 		Render render;
 
 		if (outputStyles == null || outputStyles.size() == 0) {
@@ -129,10 +129,10 @@ public class DiffMojo extends AbstractMojo {
 				throw new MojoExecutionException("Unhandled output style");
 			}
 
-			// On dessine le résultat
+			// We draw the result
 			toWrite = render.render(diff);
 
-			// Et on l'écrit dans le fichier de sortie en UTF-8
+			// And we write it in the output file in UTF-8
 			Writer fw = null;
 			try {
 				File directory = new File(String.valueOf(outputDirectory));
@@ -158,9 +158,9 @@ public class DiffMojo extends AbstractMojo {
 					projectHelper.attachArtifact(project, outputStyle.getExtension(), "swagger-diff", outputFile);
 				}
 			} catch (final IOException e) {
-				buildContext.addMessage(outputFile, 0, 0, "Could not write an output file", BuildContext.SEVERITY_ERROR,
+				buildContext.addMessage(outputFile, 0, 0, "Unable to write to output file", BuildContext.SEVERITY_ERROR,
 						e);
-				throw new MojoExecutionException("Could not write to the output file", e);
+				throw new MojoExecutionException("Unable to write to output file", e);
 			} finally {
 				IOUtils.closeQuietly(fw);
 			}

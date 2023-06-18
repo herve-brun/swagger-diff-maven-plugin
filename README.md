@@ -6,8 +6,14 @@
 
 # swagger-diff-maven-plugin
 
-This is a maven plugin to generate a report which details the differences between two Open API 2.0 definitions.
+Maven plugin which generates a report of the differences between two APIs written in OpenAPI (versions 1.0 and 2.0).
+
+Very handy when you need to generate a changelog readable by humans and deploy it along your maven artifact :)
 
 # Usage
 
 mvn fr.laposte.dsibr.maven.plugins:swagger-diff:help -Ddetail -goal=diff
+
+# Kudos
+
+This plugin uses the [swagger-diff](https://github.com/Sayi/swagger-diff) library by @Sayi.

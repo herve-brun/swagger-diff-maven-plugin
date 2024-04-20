@@ -57,3 +57,13 @@ jobs:
         with:
           name: Package
           path: staging
+      - name: Official SonarQube Scan
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          SONAR_HOST_URL : https://sonarcloud.io
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        uses: SonarSource/sonarqube-scan-action@v2.0.2
+        with:
+          # Additional arguments to the sonarcloud scanner
+          args: -Dsonar.projectKey=${{ secrets.SONAR_PROJECTKEY }} -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+

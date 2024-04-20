@@ -41,6 +41,8 @@ jobs:
          # You may pin to the exact commit or the version.
          # uses: PavanMudigonda/jacoco-reporter@4fc6bf270fe893e8dda5467e432253a6961345b8
         uses: PavanMudigonda/jacoco-reporter@v5.0
+        # Additional arguments to the sonarcloud scanner
+        args: -Dsonar.projectKey=${{ SONAR_PROJECTKEY }} -Dsonar.organization=${{ SONAR_ORGANIZATION }}
         with:
           # GITHUB_TOKEN to authenticate against API calls to attach report to Workflow Run.
           github_token: ${{ secrets.GITHUB_TOKEN }}
